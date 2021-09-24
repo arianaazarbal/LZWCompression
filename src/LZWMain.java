@@ -1,6 +1,7 @@
 public class LZWMain {
 	public static void main (String[]args)
 	{
+		long startTime = System.currentTimeMillis();
 		LZWCompression file1 = new LZWCompression("lzw-file1");
 		file1.readFile();
 		file1.LZWcompress();
@@ -16,5 +17,9 @@ public class LZWMain {
 		file3.LZWcompress();
 		file3.writeFile();
 		file3.LZWdecompress();
+		
+		long endTime = System.currentTimeMillis();
+
+		System.out.println("That took " + (endTime - startTime) + " milliseconds");
 	}
 }
