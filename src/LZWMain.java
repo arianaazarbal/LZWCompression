@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 public class LZWMain {
-	public static void main (String[]args)
+	public static void main (String[]args) throws IOException
 	{
 		long startTime = System.currentTimeMillis();
 		LZWCompression file1 = new LZWCompression("lzw-file1");

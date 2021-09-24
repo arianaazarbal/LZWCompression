@@ -16,7 +16,6 @@ public class LZWCompression {
 	String decodeOutput = "";
 
 	//Constructor -- initializes the first 256 values
-
 	public LZWCompression (String path){
 		this.path = path;
 		map = new HashMap<String, String>();
@@ -85,18 +84,30 @@ public class LZWCompression {
 		System.out.println(encodeOutput);
 	}
 
+
+//	public void writeFile() {
+//		BinaryOut out = new BinaryOut(path + ".dat");
+//		for (int i = 0; i < encodeOutput.length(); i++) {
+//			if (encodeOutput.charAt(i) == '0') {
+//				out.write(false);
+//			} else {
+//				out.write(true);
+//			}
+//		}
+//		out.flush();
+//	}
+	
 	//Encode the compressed file
 
-	public void writeFile() {
-		BinaryOut out = new BinaryOut(path + ".dat");
-		for (int i = 0; i < encodeOutput.length(); i++) {
-			if (encodeOutput.charAt(i) == '0') {
-				out.write(false);
-			} else {
-				out.write(true);
-			}
-		}
-		out.flush();
+	public void writeFile() throws IOException
+	{
+		char [] encodedChars = encodeOutput.toCharArray ();
+		
+		byte[] outputInBytes = BinaryCodec.fromAscii (encodedChars);
+				
+		FileOutputStream fos = new FileOutputStream("output");
+		fos.write(outputInBytes);
+		fos.close();
 	}
 
 	//Decode output binary string
@@ -108,6 +119,7 @@ public class LZWCompression {
 
 		{
 			String binaryString = Integer.toBinaryString(i);
+					
 
 			int l = 9-binaryString.length();
 
@@ -119,7 +131,9 @@ public class LZWCompression {
 			String actualLetters = Character.toString((char)i);
 
 			decodeMap.put(binaryString, actualLetters);
-
+			
+			
+			
 		}
 
 		for(int i = 0; i < encodeOutput.length(); i+=9) {
